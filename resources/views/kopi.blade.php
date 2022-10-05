@@ -77,10 +77,9 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">Owner</label>
                             <div class="col-md-9 col-sm-9 ">
-                                <select class="form-control" name="id_user">
-                                    <option value="">- pilih -</option>
+                                <select class="form-control" id="owner">
                                     @foreach ($owners as $item)
-                                    <option value="{{$item->$id_user}}">{{ $item->nama}}</option>
+                                    <option value="{{$item->id_user}}">{{$item->nama}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -125,6 +124,16 @@
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="asal_update" value="" maxlength="50"
                                     required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Owner</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <select class="form-control" id="owner_update">
+                                    @foreach ($owners as $item)
+                                    <option value="{{$item->id_user}}">{{ $item->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <br>
@@ -183,6 +192,7 @@
                 var jenis_kopi = $('#jenis_kopi').val();
                 var jumlah = $('#jumlah').val();
                 var asal = $('#asal').val();
+                var owner = $('#owner').val();
                 var token = $("meta[name='csrf-token']").attr("content");
                 $.ajax({
                     url: "{{ url('/kopi/list/tambah') }}",
@@ -193,6 +203,7 @@
                         "jenis_kopi": jenis_kopi,
                         "jumlah": jumlah,
                         "asal": asal,
+                        "owner": owner,
                         "_token":token,
                     },
                     success:function(response){
@@ -224,6 +235,7 @@
                         $('#jenis_kopi_update').val(response.data.jenis_kopi);
                         $('#jumlah_update').val(response.data.jumlah);
                         $('#asal_update').val(response.data.asal);
+                        $('#owner_update').val(response.data.owner);
                         $('#modal-update').modal('show');
                     }
                 });
@@ -236,6 +248,7 @@
                 var jenis_kopi = $('#jenis_kopi_update').val();
                 var jumlah = $('#jumlah_update').val();
                 var asal = $('#asal_update').val();
+                var owner = $('#owner_update').val();
 
                 $.ajax({
                     url: `{{URL('kopi/list/update/${post_id}')}}`,
@@ -245,6 +258,7 @@
                         "jenis_kopi": jenis_kopi,
                         "jumlah": jumlah,
                         "asal": asal,
+                        "owner": owner,
                     },
                     success:function(response){
                         console.log(response);

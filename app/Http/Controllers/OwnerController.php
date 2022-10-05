@@ -11,6 +11,6 @@ class OwnerController extends Controller
     public function create()
     {
         $owners = Owner::all();
-        return view('kopi', compact('owners'));
+        return view('/kopi/list/tambah', compact('owners'));
     }
 }

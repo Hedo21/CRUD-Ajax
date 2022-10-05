@@ -14,8 +14,4 @@ class Owner extends Model
 
     use HasFactory;
     protected $table = 'owners';
-    protected $fillable = [
-        'id_user',
-        'nama',
-    ];
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\kopi;
+use App\Models\Owner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +18,8 @@ class KopiController extends Controller
      */
     public function index()
     {
-        return view('kopi');
+        $owners = Owner::all();
+        return view('kopi', compact('owners'));
     }
 
     public function yajra()
@@ -42,6 +45,7 @@ class KopiController extends Controller
             'jenis_kopi' => 'required',
             'jumlah' => 'required',
             'asal' => 'required',
+            'owner' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors());
@@ -50,6 +54,7 @@ class KopiController extends Controller
                 'jenis_kopi' => $request->jenis_kopi,
                 'jumlah' => $request->jumlah,
                 'asal' => $request->asal,
+                'owner' => $request->owner,
             ]);
             if ($tambah) {
                 return response()->json([
@@ -116,6 +121,7 @@ class KopiController extends Controller
             'jenis_kopi' => 'required',
             'jumlah' => 'required',
             'asal' => 'required',
+            'owner' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors());
@@ -125,6 +131,7 @@ class KopiController extends Controller
                 'jenis_kopi' => $request->jenis_kopi,
                 'jumlah' => $request->jumlah,
                 'asal' => $request->asal,
+                'owner' => $request->owner,
             ]);
             return response()->json([
                 'success' => true,
